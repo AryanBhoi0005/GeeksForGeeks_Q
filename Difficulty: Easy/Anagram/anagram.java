@@ -11,17 +11,17 @@ class GFG {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int t = Integer.parseInt(br.readLine());
         while (t-- > 0) {
-            String str = br.readLine();
-            String s1 = str.split(" ")[0];
-            String s2 = str.split(" ")[1];
+            String s1 = br.readLine(); // first string
+            String s2 = br.readLine(); // second string
 
             Solution obj = new Solution();
 
-            if (obj.isAnagram(s1, s2)) {
-                System.out.println("YES");
+            if (obj.areAnagrams(s1, s2)) {
+                System.out.println("true");
             } else {
-                System.out.println("NO");
+                System.out.println("false");
             }
+            System.out.println("~");
         }
     }
 }
@@ -30,34 +30,34 @@ class GFG {
 
 class Solution {
     // Function is to check whether two strings are anagram of each other or not.
-    public static boolean isAnagram(String str1, String str2) {
+    public static boolean areAnagrams(String s1, String s2) {
 
         // Your code here
-        
-        // Your code here
-        HashMap<Character,Integer> map=new HashMap<>();
-        if(str1.length()!=str2.length()){
+        if(s1.length()!=s2.length()){
             return false;
         }
-        for(int i=0;i<str1.length();i++){
-            char ch=str1.charAt(i);
+        
+        HashMap<Character,Integer> map=new HashMap<>();
+        for(int i=0;i<s1.length();i++){
+            char ch=s1.charAt(i);
             map.put(ch,map.getOrDefault(ch,0)+1);
         }
-        for(int i=0;i<str2.length();i++){
-            char ch=str2.charAt(i);
-            if(!map.containsKey(ch)){
-               return false;  
-            }
-            map.put(ch,map.get(ch)-1);
-            if(map.get(ch)<0){
-                return false;
-            }
-        }
-        for(char num:map.keySet()){
-            if(map.get(num)!=0){
-                return false;
+        
+        for(int i=0;i<s2.length();i++){
+            char ch=s2.charAt(i);
+            if(map.containsKey(ch)){
+                if(map.get(ch)==1){
+                    map.remove(ch);
+                }
+                else{
+                    map.put(ch,map.get(ch)-1);
+                }
             }
         }
-        return true;
+        int val=map.size();
+        if(val==0){
+            return true;
+        }
+        return false;
     }
 }
