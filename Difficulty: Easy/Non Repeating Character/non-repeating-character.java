@@ -13,12 +13,14 @@ class Driverclass {
         while (t-- > 0) {
             String st = sc.next();
 
-            char ans = new Solution().nonrepeatingCharacter(st);
+            char ans = new Solution().nonRepeatingChar(st);
 
             if (ans != '$')
                 System.out.println(ans);
             else
                 System.out.println(-1);
+
+            System.out.println("~");
         }
     }
 }
@@ -30,16 +32,19 @@ class Driverclass {
 
 class Solution {
     // Function to find the first non-repeating character in a string.
-    static char nonrepeatingCharacter(String s) {
+    static char nonRepeatingChar(String s) {
         // Your code here
-        char ch=0;
         HashMap<Character,Integer> map=new HashMap<>();
         for(int i=0;i<s.length();i++){
-            map.put(s.charAt(i),map.getOrDefault(s.charAt(i),0)+1);
+            char ch=s.charAt(i);
+            map.put(ch,map.getOrDefault(ch,0)+1);
         }
         for(int i=0;i<s.length();i++){
-            if(map.get(s.charAt(i))==1){
-                return s.charAt(i);
+            char ch=s.charAt(i);
+            if(map.containsKey(ch)){
+               if(map.get(ch)==1){
+                   return ch;
+               }    
             }
         }
         return '$';
